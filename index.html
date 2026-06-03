@@ -985,6 +985,77 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
   background: rgba(6,8,16,0.58) !important;
 }
 
+
+/* ═══ MOBILE OVERRIDE — FORCE FIX ═══ */
+@media(max-width:700px){
+  /* Form container */
+  .form-wrap{
+    display:block !important;
+  }
+  .eval-panel{
+    position:static !important;
+    width:100% !important;
+    margin-top:12px;
+  }
+  /* All form rows = single column */
+  .f-row, .f-row3, .f-row1{
+    grid-template-columns:1fr !important;
+  }
+  /* Fecha+Hora = 2 cols but smaller */
+  .f-fecha-row{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:8px;
+  }
+  /* Toggle buttons (S1/S2, BUY/SELL, A+/B+/C) */
+  .tg{
+    flex-wrap:wrap !important;
+    gap:4px !important;
+  }
+  .tg-btn{
+    white-space:normal !important;
+    font-size:11px !important;
+    padding:6px 4px !important;
+    text-align:center !important;
+    min-width:0 !important;
+    flex:1 1 auto !important;
+  }
+  /* All inputs full width */
+  .f-input, select.f-input{
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+  /* Checklist */
+  .cklist{
+    grid-template-columns:1fr !important;
+  }
+  /* Page padding */
+  .page{padding:8px 10px !important}
+  /* Header */
+  .hdr{padding:0 8px !important; gap:6px !important;}
+  .hdr-title{font-size:12px !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; min-width:0 !important;}
+  .hdr-cta{padding:6px 10px !important; font-size:11px !important; white-space:nowrap !important;}
+  .hdr-pill{display:none !important}
+  /* KPI cards */
+  .kpi-row{grid-template-columns:1fr 1fr !important;}
+  .g3{grid-template-columns:1fr 1fr !important;}
+  /* Dashboard 2-col */
+  .dash-2col{grid-template-columns:1fr !important;}
+  /* Matrix */
+  .matrix{grid-template-columns:1fr 1fr !important;}
+  /* General overflow prevention */
+  .page > *, .f-section, .card, .card-body{
+    max-width:100% !important;
+    overflow-x:hidden !important;
+    box-sizing:border-box !important;
+  }
+}
+@media(max-width:420px){
+  .kpi-row{grid-template-columns:1fr 1fr !important;}
+  .g3{grid-template-columns:1fr 1fr !important;}
+  .tg-btn{font-size:10.5px !important;}
+}
+
 </style>
 </head>
 <body>
@@ -1168,7 +1239,7 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
           <div class="card-body">
             <div class="f-section">
               <div class="f-sep">Cuándo y dónde</div>
-              <div class="f-row f-row3">
+              <div class="f-fecha-row">
                 <div class="f-field">
                   <label class="f-label">Fecha<span class="r">*</span></label>
                   <input type="date" id="f-fecha" class="f-input"/>
