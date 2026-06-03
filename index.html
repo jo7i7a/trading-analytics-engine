@@ -46,7 +46,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px;background:var(--c0);overflow-x:hidden}
-body{font-family:var(--sans);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{cursor:pointer;font-family:inherit;border:none;background:none}
 input,textarea,select{font-family:inherit;outline:none}
 ::-webkit-scrollbar{width:3px;height:3px}
@@ -102,7 +102,7 @@ input,textarea,select{font-family:inherit;outline:none}
 .sidebar-sep{width:28px;height:1px;background:var(--border);margin:4px auto}
 
 /* MAIN */
-.main{flex:1;margin-left:var(--sidebar);display:flex;flex-direction:column;min-height:100vh}
+.main{flex:1;margin-left:var(--sidebar);display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden;max-width:calc(100vw - var(--sidebar))}
 
 /* HEADER */
 .hdr{
@@ -118,6 +118,7 @@ input,textarea,select{font-family:inherit;outline:none}
   font-family:var(--mono);font-size:13px;font-weight:500;
   letter-spacing:.06em;color:var(--t2);
   display:flex;align-items:center;gap:8px;flex:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
 .hdr-title span{color:var(--t1);font-weight:600}
 .hdr-pill{
@@ -141,9 +142,12 @@ input,textarea,select{font-family:inherit;outline:none}
 }
 
 /* PAGES */
-.page{display:none;padding:20px;flex:1}
+.page{display:none;padding:20px;flex:1;overflow-x:hidden;box-sizing:border-box;width:100%}
 .page.active{display:block}
 .page-grid{display:grid;gap:14px}
+.dash-2col{display:grid;grid-template-columns:1fr 300px;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* ───────────────────────────────
    BACKGROUND TEXTURE
@@ -183,7 +187,7 @@ input,textarea,select{font-family:inherit;outline:none}
 /* ───────────────────────────────
    KPI CARDS
 ─────────────────────────────── */
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
 .kpi{
   background:rgba(17,24,39,0.8);
   border:1px solid var(--border);
@@ -239,7 +243,7 @@ input,textarea,select{font-family:inherit;outline:none}
 /* ───────────────────────────────
    MATRIX
 ─────────────────────────────── */
-.matrix{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
 .mx{border-radius:10px;padding:14px 14px 12px;border:1px solid}
 .mx-gw{background:rgba(0,212,140,0.07);border-color:rgba(0,212,140,0.22)}
 .mx-gl{background:rgba(245,166,35,0.07);border-color:rgba(245,166,35,0.22)}
@@ -314,7 +318,7 @@ input,textarea,select{font-family:inherit;outline:none}
 /* ───────────────────────────────
    FORM — REGISTRO
 ─────────────────────────────── */
-.form-wrap{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+.form-wrap{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
 .f-section{margin-bottom:20px}
 .f-sep{
   font-size:9px;font-weight:700;letter-spacing:.14em;
@@ -606,16 +610,43 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
   .form-wrap{grid-template-columns:1fr}
   .eval-panel{position:static}
   .kpi-row{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr}
   .page{padding:14px}
+  .main{max-width:calc(100vw - 44px)}
+  .dash-2col{grid-template-columns:1fr}
+  .hdr{padding:0 12px;gap:8px}
+  .hdr-cta{padding:7px 11px;font-size:11.5px}
+  .f-row3{grid-template-columns:1fr 1fr}
+  .tg{flex-wrap:wrap}
+  .tg-btn{font-size:11px;padding:6px 6px;white-space:normal;text-align:center}
 }
 @media(max-width:520px){
+  :root{--sidebar:44px}
   .kpi-row{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr}
   .f-row{grid-template-columns:1fr}
   .f-row3{grid-template-columns:1fr 1fr}
   .cklist{grid-template-columns:1fr}
   .img-grid{grid-template-columns:1fr}
   .hdr-pill{display:none}
   .matrix{grid-template-columns:1fr 1fr}
+  .page{padding:10px}
+  .main{max-width:calc(100vw - 44px)}
+  .hdr{padding:0 10px;gap:6px}
+  .hdr-title{font-size:12px}
+  .hdr-cta{padding:6px 10px;font-size:11px}
+  .tg{flex-wrap:wrap}
+  .tg-btn{font-size:11px;white-space:normal;text-align:center;min-width:calc(50% - 4px)}
+}
+@media(max-width:400px){
+  .kpi-row{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr 1fr}
+  .g2{grid-template-columns:1fr}
+  .matrix{grid-template-columns:1fr 1fr;font-size:12px}
+  .page{padding:8px}
+  .kpi{padding:12px 10px 10px}
+  .dash-2col{grid-template-columns:1fr}
+  .form-wrap{grid-template-columns:1fr}
 }
 
 /* ── IMAGE BACKGROUNDS ─────── */
@@ -1030,7 +1061,7 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
       </div>
 
       <!-- 2-col grid -->
-      <div style="display:grid;grid-template-columns:1fr 340px;gap:14px">
+      <div class="dash-2col">
 
         <!-- LEFT -->
         <div class="page-grid">
@@ -1431,7 +1462,7 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
        S1
   ════════════════════════════ -->
   <div class="page" id="pg-s1">
-    <div style="max-width:680px">
+    <div style="max-width:680px;width:100%">
       <div class="card card-s1" style="margin-bottom:14px">
         <div class="card-head">
           <span class="card-title">S1 — Order Block H4</span>
@@ -1459,7 +1490,7 @@ textarea.f-input{resize:vertical;min-height:76px;line-height:1.55}
        S2
   ════════════════════════════ -->
   <div class="page" id="pg-s2">
-    <div style="max-width:680px">
+    <div style="max-width:680px;width:100%">
       <div class="card card-s2" style="margin-bottom:14px">
         <div class="card-head">
           <span class="card-title">S2 — Fair Value Gap H1</span>
@@ -1697,7 +1728,7 @@ function renderStats(){
     const wins=tvv.filter(t=>t.result==='WIN').length;
     const wr=tvv.length>0?(wins/tvv.length*100).toFixed(1):'—';
     const exp=tvv.length>0?(tvv.reduce((sum,t)=>sum+(+t.rReal||(t.result==='WIN'?2:t.result==='LOSS'?-1:0)),0)/tvv.length).toFixed(2):'—';
-    return `<div class="card" style="margin-bottom:14px"><div class="card-head"><span class="card-title">Setup ${s}</span><span class="tag ${s==='S1'?'t-s1':'t-s2'}">${s}</span></div><div class="card-body">${tvv.length<30?`<div class="edge-alert ea-warn" style="margin-bottom:12px"><div class="ea-icon">⚠️</div><div><div class="ea-title">Muestra: ${tvv.length}/30</div><div class="ea-sub">Mínimo 30 trades proceso-válido</div></div></div>`:''}<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"><div class="kpi b" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">TOTAL</div><div class="kpi-val" style="font-size:22px">${tv.length}</div></div><div class="kpi go" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">WIN RATE</div><div class="kpi-val" style="font-size:22px">${wr}${wr!=='—'?'%':''}</div></div><div class="kpi g" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">EXPECTANCY</div><div class="kpi-val" style="font-size:22px">${exp}${exp!=='—'?' R':''}</div></div></div></div></div>`;
+    return `<div class="card" style="margin-bottom:14px"><div class="card-head"><span class="card-title">Setup ${s}</span><span class="tag ${s==='S1'?'t-s1':'t-s2'}">${s}</span></div><div class="card-body">${tvv.length<30?`<div class="edge-alert ea-warn" style="margin-bottom:12px"><div class="ea-icon">⚠️</div><div><div class="ea-title">Muestra: ${tvv.length}/30</div><div class="ea-sub">Mínimo 30 trades proceso-válido</div></div></div>`:''}<div class="g3"><div class="kpi b" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">TOTAL</div><div class="kpi-val" style="font-size:22px">${tv.length}</div></div><div class="kpi go" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">WIN RATE</div><div class="kpi-val" style="font-size:22px">${wr}${wr!=='—'?'%':''}</div></div><div class="kpi g" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">EXPECTANCY</div><div class="kpi-val" style="font-size:22px">${exp}${exp!=='—'?' R':''}</div></div></div></div></div>`;
   }).join('');
   // Sessions
   const sesHtml=(['Londres','Nueva York','Solapamiento','Asia'].map(s=>{const sv=T.filter(t=>t.sesion===s&&t.isVP);if(!sv.length)return '';const wr2=Math.round(sv.filter(t=>t.result==='WIN').length/sv.length*100);return `<div class="stat-row"><span class="stat-lbl">${s}</span><div class="stat-track"><div class="stat-fill" style="width:${wr2}%;background:var(--blue)"></div></div><span class="stat-val">${wr2}% (${sv.length})</span></div>`}).filter(Boolean).join(''))||`<div style="color:var(--t3);font-size:12px;text-align:center;padding:12px">Sin datos de sesión</div>`;
@@ -1724,7 +1755,7 @@ function renderSetupM(s){
   const wins=tvv.filter(t=>t.result==='WIN').length;
   const wr=tvv.length>0?(wins/tvv.length*100).toFixed(1)+'%':'—';
   const exp=tvv.length>0?((tvv.reduce((s2,t)=>s2+(+t.rReal||(t.result==='WIN'?2:t.result==='LOSS'?-1:0)),0)/tvv.length).toFixed(2)+' R'):'—';
-  el.innerHTML=`${tvv.length<30?`<div class="edge-alert ea-warn" style="margin-bottom:12px"><div class="ea-icon">⚠️</div><div><div class="ea-title">Muestra: ${tvv.length}/30 trades proceso válido</div><div class="ea-sub">Mínimo 30 para conclusiones robustas</div></div></div>`:''}<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"><div class="kpi b" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">TOTAL</div><div class="kpi-val" style="font-size:22px">${tv.length}</div></div><div class="kpi go" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">WIN RATE</div><div class="kpi-val" style="font-size:22px">${wr}</div></div><div class="kpi g" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">EXPECTANCY</div><div class="kpi-val" style="font-size:22px">${exp}</div></div></div><div style="margin-top:10px;font-size:11px;color:var(--t3)">Válidos: ${tvv.length} · Wins: ${wins} · Losses: ${tvv.length-wins}</div>`;
+  el.innerHTML=`${tvv.length<30?`<div class="edge-alert ea-warn" style="margin-bottom:12px"><div class="ea-icon">⚠️</div><div><div class="ea-title">Muestra: ${tvv.length}/30 trades proceso válido</div><div class="ea-sub">Mínimo 30 para conclusiones robustas</div></div></div>`:''}<div class="g3"><div class="kpi b" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">TOTAL</div><div class="kpi-val" style="font-size:22px">${tv.length}</div></div><div class="kpi go" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">WIN RATE</div><div class="kpi-val" style="font-size:22px">${wr}</div></div><div class="kpi g" style="padding:12px 14px"><div class="kpi-accent"></div><div class="kpi-label">EXPECTANCY</div><div class="kpi-val" style="font-size:22px">${exp}</div></div></div><div style="margin-top:10px;font-size:11px;color:var(--t3)">Válidos: ${tvv.length} · Wins: ${wins} · Losses: ${tvv.length-wins}</div>`;
 }
 window.renderSetupM=renderSetupM;
 
